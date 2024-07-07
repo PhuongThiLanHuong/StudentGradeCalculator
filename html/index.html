@@ -1,45 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Student Grade Calculator</title>
-    <!-- link for font -->
-    <link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Scores</title>
+    <link rel="stylesheet" href="../css/score.css">
 </head>
 <body>
-    <!-- main html -->
-    <div class="container">
-        <h1>Student Grade Calculator</h1>
-        <div class="screen-body-item">
-            <div class="app">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="CHEMISTRY" id="chemistry" />
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="HINDI" id="hindi" />
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="MATHS" id="maths" />
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="PHYSICS" id="phy" />
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="ENGLISH" id="english" />
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="BIOLOGY" id="biology" />
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="HISTORY" id="history" />
-                </div>
-                <div>
-                    <input type="button" value="Show Percentage" class="form-button" onclick="calculate()" />
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--adding external javascript file-->
-    <script src="../js/script.js"></script>
+    <h1>Student Scores</h1>
+    <form id="scoreForm">
+        <input type="text" id="studentName" placeholder="Student Name" required>
+        <button type="button" id="searchButton" onclick="searchScores()">Search</button>
+        <div id="taskContainer"></div>
+        <button type="button" onclick="addTask()">Add Task</button>
+        <button type="submit">Save Scores</button>
+        <button id="exportButton" type="button">Export to CSV</button>
+        <button id="showResultButton" onclick="showResult()">Show Result</button>
+    </form>
+    <h2>Total Scores</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Score (10-point scale)</th>
+                <th>Score (4-point scale)</th>
+                <th>Grade</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="scoresTableBody">
+            <!-- Scores will be populated here -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Total/Average</th>
+                <td id="totalScore10">0</td>
+                <td id="totalScore4">0</td>
+                <td colspan="2"></td>
+            </tr>
+            <tr>
+                <th></th>
+                <td id="averageScore10">0</td>
+                <td id="averageScore4">0</td>
+                <td colspan="2"></td>
+            </tr>
+        </tfoot>
+    </table>
+    <script src="/js/score.js"></script>
+    <script>
+        function showResult() {
+            const studentName = document.getElementById('studentName').value.trim();
+            if (!studentName) {
+                alert("Please enter the student's name.");
+                return;
+            }
+            window.location.href = `html/result.html?student=${encodeURIComponent(studentName)}`;
+        }
+    </script>
 </body>
 </html>
